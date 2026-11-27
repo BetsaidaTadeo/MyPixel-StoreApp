@@ -10,8 +10,8 @@
         <q-btn
           unelevated
           no-caps
-          color="secondary"
-          text-color="black"
+          color="positive"
+          text-color="white"
           icon="add_shopping_cart"
           label="Comprar"
           @click="carrito.agregar(celular)"
@@ -83,8 +83,8 @@
             unelevated
             no-caps
             size="lg"
-            color="light-green-5"
-            text-color="black"
+            color="positive"
+            text-color="white"
             icon="add_shopping_cart"
             label="Agregar al carrito"
             class="full-width q-mt-md"
