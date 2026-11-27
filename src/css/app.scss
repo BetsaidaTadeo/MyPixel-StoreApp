@@ -1,1 +1,191 @@
 // app global css
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap');
+
+.app-title {
+  font-family: 'Bitcount Single', monospace;
+  font-weight: 500;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+// ---------- Listado: tarjetas de celulares ----------
+.grid-celulares {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.grid-celulares > .card-celular {
+  min-width: 0;
+}
+
+.card-celular {
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.card-celular:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.marca-celular {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #313131;
+}
+
+.titulo-celular {
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #1f1f1f;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+}
+
+.precio {
+  display: flex;
+  align-items: flex-start;
+  color: #1f1f1f;
+  line-height: 1;
+}
+
+.precio-simbolo,
+.precio-decimales {
+  font-size: 0.8rem;
+  margin-top: 3px;
+}
+
+.precio-entero {
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin: 0 1px;
+}
+
+// ---------- Listado: filtros horizontales ----------
+.fila-filtro {
+  gap: 8px;
+}
+
+.etiqueta-filtro {
+  font-size: 1rem;
+}
+
+.input-precio {
+  width: 100px;
+}
+
+// ---------- Detalle del anuncio ----------
+.fila-espec + .fila-espec {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+// ---------- Header (MainLayout) ----------
+.q-field.buscador-header {
+  max-width: 450px;
+  margin: 0 16px;
+}
+
+// ---------- Carrito ----------
+.carrito-miniatura {
+  display: block;
+  width: 140px;
+  min-height: 140px;
+}
+
+.carrito-titulo {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  margin-bottom: 6px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ---------- Crear anuncio ----------
+.anuncio-seccion {
+  border-radius: 12px;
+}
+
+.zona-fotos {
+  min-height: 180px;
+  padding: 24px;
+  text-align: center;
+  border: 2px dashed var(--q-primary);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.02);
+  transition: background 0.15s;
+
+  &:hover,
+  &.zona-activa {
+    background: rgba(0, 0, 0, 0.06);
+  }
+}
+
+// ---------- Tablet y celular (menos de 1024 px) ----------
+@media (max-width: 1023px) {
+  // El buscador ocupa lo que deja el botón de menú
+  .q-field.buscador-header {
+    max-width: none;
+    margin: 0 0 0 8px;
+  }
+
+  // "Ordenar por" y el botón de filtros van arriba del rango de precio
+  .filtro-orden {
+    order: -1;
+  }
+}
+
+// ---------- Celular (menos de 600 px) ----------
+@media (max-width: 599px) {
+  .q-toolbar__title.app-title {
+    font-size: 18px;
+  }
+
+  // Dos tarjetas por fila, más compactas
+  .grid-celulares {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .card-celular .q-card__section {
+    padding: 8px 10px;
+  }
+
+  .card-celular .titulo-celular {
+    font-size: 0.85rem;
+  }
+
+  .card-celular .precio-entero {
+    font-size: 1.4rem;
+  }
+
+  .card-celular .q-btn {
+    font-size: 11px;
+    min-height: 32px;
+    padding: 4px 8px;
+  }
+
+  // Filtros horizontales más angostos para que quepan en una fila
+  .fila-filtro {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .etiqueta-filtro {
+    font-size: 0.85rem;
+  }
+
+  .input-precio {
+    width: 78px;
+  }
+}
