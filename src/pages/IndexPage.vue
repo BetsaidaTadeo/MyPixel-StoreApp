@@ -81,7 +81,7 @@
         </q-card-section>
 
         <q-card-section>
-          <q-btn unelevated rounded no-caps text-color="white" color="positive" icon="add_shopping_cart"
+          <q-btn unelevated rounded no-caps text-color="black" color="positive" icon="add_shopping_cart"
             label="Agregar al carrito" class="full-width" @click="carrito.agregar(celular)" />
         </q-card-section>
       </q-card>
