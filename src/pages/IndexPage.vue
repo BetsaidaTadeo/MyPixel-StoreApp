@@ -27,7 +27,7 @@
                 {{ $q.screen.lt.sm ? 'Ordenar:' : 'Ordenar por:' }}
               </span>
               <q-btn-toggle v-model="filtros.orden" :options="opcionesOrden" :dense="$q.screen.lt.sm" no-caps unelevated
-                color="primary" text-color="white" toggle-color="light-green-5" toggle-text-color="white" />
+                color="primary" text-color="white" toggle-color="positive" toggle-text-color="white" />
             </q-card-section>
           </q-card>
 
@@ -81,7 +81,7 @@
         </q-card-section>
 
         <q-card-section>
-          <q-btn unelevated rounded no-caps text-color="black" color="light-green-5" icon="add_shopping_cart"
+          <q-btn unelevated rounded no-caps text-color="white" color="positive" icon="add_shopping_cart"
             label="Agregar al carrito" class="full-width" @click="carrito.agregar(celular)" />
         </q-card-section>
       </q-card>
