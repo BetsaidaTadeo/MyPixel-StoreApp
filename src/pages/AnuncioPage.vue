@@ -10,7 +10,7 @@
         <q-btn
           unelevated
           no-caps
-          color="light-green-5"
+          color="secondary"
           text-color="black"
           icon="add_shopping_cart"
           label="Comprar"

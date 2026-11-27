@@ -25,7 +25,7 @@
             <q-card-section horizontal>
               <router-link :to="`/anuncio/${item.id}`" class="carrito-miniatura">
                 <q-img v-if="item.imagen" :src="item.imagen" fit="contain" class="bg-white fit" />
-                <div v-else class="bg-grey-2 flex flex-center fit">
+                <div v-else class="secondary flex flex-center fit">
                   <q-icon name="smartphone" size="40px" color="grey-5" />
                 </div>
               </router-link>
@@ -84,8 +84,8 @@
                 unelevated
                 no-caps
                 size="lg"
-                color="light-green-5"
-                text-color="black"
+                color="positive"
+                text-color="white"
                 label="Finalizar compra"
                 class="full-width"
                 @click="finalizar"

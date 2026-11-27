@@ -68,7 +68,7 @@
           >
             <q-badge
               v-if="e.to === '/carrito' && carrito.cantidad"
-              color="light-green-5"
+              color="positive"
               text-color="black"
               floating
             >
@@ -106,7 +106,7 @@
           </q-item-section>
           <q-item-section>{{ e.label }}</q-item-section>
           <q-item-section v-if="e.to === '/carrito' && carrito.cantidad" side>
-            <q-badge color="light-green-5" text-color="black">{{ carrito.cantidad }}</q-badge>
+            <q-badge color="positive" text-color="black">{{ carrito.cantidad }}</q-badge>
           </q-item-section>
         </q-item>
       </q-list>
@@ -118,7 +118,7 @@
       v-model="filtros.panelAbierto"
       show-if-above
       :width="280"
-      class="bg-primary"
+      class="bg-primary text-black"
     >
       <div class="q-pa-md">
         <div class="row items-center justify-between q-mb-sm">
@@ -135,7 +135,7 @@
           />
         </div>
 
-        <q-card flat class="overflow-hidden q-mb-md" style="border-radius: 12px">
+        <q-card flat class="overflow-hidden q-mb-md " style="border-radius: 12px" >
           <div class="column">
             <q-toggle v-model="filtros.nuevo" label="Nuevo" color="secondary" />
             <q-toggle v-model="filtros.usado" label="Usado" color="secondary" />
@@ -147,11 +147,11 @@
           v-for="g in grupos"
           :key="g.campo"
           flat
-          class="overflow-hidden q-mb-md"
+          class="overflow-hidden q-mb-md "
           style="border-radius: 12px"
         >
           <q-expansion-item dense dense-toggle expand-separator :label="g.titulo" default-opened>
-            <q-card-section class="q-pt-none">
+            <q-card-section class="q-pt-none ">
               <div class="q-gutter-sm column">
                 <q-checkbox
                   v-for="op in g.opciones"
