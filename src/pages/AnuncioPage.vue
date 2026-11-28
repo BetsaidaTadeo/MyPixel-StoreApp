@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <q-page-sticky v-if="celular && $q.screen.lt.md" position="top" expand>
+    <q-page-sticky v-if="celular && $q.screen.lt.md" position="top" expand style="z-index: 1000" >
       <div
         class="row items-center no-wrap full-width bg-white q-pa-sm"
         style="border-bottom: 1px solid #ddd"
@@ -51,7 +51,7 @@
             </q-carousel>
 
               <FotoCelular v-else :src="null" height="420px" />
-            
+
           </q-card>
         </div>
 
