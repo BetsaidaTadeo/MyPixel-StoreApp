@@ -11,6 +11,8 @@ export const useFiltrosStore = defineStore('filtros', () => {
   const precioHasta = ref('')
   const orden = ref('precio')
   const busqueda = ref('')
+  // true = de menor a mayor, false = de mayor a menor
+const precioAsc = ref(true)
 
   // Panel de filtros abierto o cerrado. Está aquí para que el botón de embudo
   // del listado (IndexPage) y el panel (MainLayout) compartan el mismo estado.
@@ -27,5 +29,6 @@ export const useFiltrosStore = defineStore('filtros', () => {
     orden,
     busqueda,
     panelAbierto,
+    precioAsc
   }
 })

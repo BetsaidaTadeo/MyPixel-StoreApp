@@ -14,18 +14,20 @@
       <div v-else class="row q-col-gutter-lg">
         <!-- Productos -->
         <div class="col-12 col-md-8">
-          <q-card
-            v-for="item in carrito.items"
-            :key="item.id"
-            flat
-            bordered
-            class="q-mb-md overflow-hidden"
-            style="border-radius: 12px"
-          >
+          <q-card v-for="item in carrito.items" :key="item.id" flat bordered class="q-mb-md overflow-hidden"
+            style="border-radius: 12px">
             <q-card-section horizontal>
               <router-link :to="`/anuncio/${item.id}`" class="carrito-miniatura">
-                <q-img v-if="item.imagen" :src="item.imagen" fit="contain" class="bg-white fit" />
-                <div v-else class="secondary flex flex-center fit">
+                <q-img v-if="item.imagen" :src="item.imagen" fit="contain" class="bg-white fit"
+                  style="min-height: inherit">
+                  <!-- Si la foto no carga, se muestra el ícono del celular -->
+                  <template #error>
+                    <div class="absolute-full flex flex-center bg-grey-2">
+                      <q-icon name="smartphone" size="40px" color="grey-5" />
+                    </div>
+                  </template>
+                </q-img>
+                <div v-else class="bg-grey-2 flex flex-center fit" style="min-height: inherit">
                   <q-icon name="smartphone" size="40px" color="grey-5" />
                 </div>
               </router-link>
@@ -36,25 +38,32 @@
                   {{ item.titulo }}
                 </router-link>
                 <div>
-                  <q-badge
-                    color="secondary"
-                    text-color="black"
-                    :label="item.estado === 'nuevo' ? 'Nuevo' : 'Usado'"
-                  />
+                  <q-badge color="secondary" text-color="black" :label="item.estado === 'nuevo' ? 'Nuevo' : 'Usado'" />
+                </div>
+
+                <!-- Cantidad -->
+                <div class="row items-center no-wrap q-mt-sm" style="gap: 4px">
+                  <q-btn round dense outline size="sm" color="primary" icon="remove" aria-label="Quitar una unidad"
+                    :disable="item.cantidad <= 1" @click="carrito.cambiarCantidad(item.id, -1)" />
+                  <span class="text-subtitle1 text-weight-medium text-center" style="min-width: 32px">
+                    {{ item.cantidad }}
+                  </span>
+                  <q-btn round dense outline size="sm" color="primary" icon="add" aria-label="Agregar una unidad"
+                    :disable="item.cantidad >= MAX_UNIDADES" @click="carrito.cambiarCantidad(item.id, 1)" />
                 </div>
               </q-card-section>
 
               <q-card-section class="column items-end justify-between">
-                <div class="text-h6 text-weight-bold">${{ item.precio.toFixed(2) }}</div>
-                <q-btn
-                  flat
-                  dense
-                  no-caps
-                  color="negative"
-                  icon="delete_outline"
-                  label="Quitar"
-                  @click="carrito.quitar(item.id)"
-                />
+                <div class="text-right">
+                  <div class="text-h6 text-weight-bold">
+                    ${{ (item.precio * item.cantidad).toFixed(2) }}
+                  </div>
+                  <div v-if="item.cantidad > 1" class="text-caption text-grey-7">
+                    ${{ item.precio.toFixed(2) }} c/u
+                  </div>
+                </div>
+                <q-btn flat dense no-caps color="negative" icon="delete_outline" label="Quitar"
+                  @click="carrito.quitar(item.id)" />
               </q-card-section>
             </q-card-section>
           </q-card>
@@ -80,24 +89,10 @@
             </q-card-section>
 
             <q-card-section class="q-pt-none">
-              <q-btn
-                unelevated
-                no-caps
-                size="lg"
-                color="positive"
-                text-color="white"
-                label="Finalizar compra"
-                class="full-width"
-                @click="finalizar"
-              />
-              <q-btn
-                flat
-                no-caps
-                color="grey-8"
-                label="Vaciar carrito"
-                class="full-width q-mt-sm"
-                @click="carrito.vaciar()"
-              />
+              <q-btn unelevated no-caps size="lg" color="positive" text-color="white" label="Finalizar compra"
+                class="full-width" @click="finalizar" />
+              <q-btn flat no-caps color="grey-8" label="Vaciar carrito" class="full-width q-mt-sm"
+                @click="carrito.vaciar()" />
             </q-card-section>
           </q-card>
         </div>
@@ -109,7 +104,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
-import { useCarritoStore } from '@/stores/carrito'
+import { useCarritoStore, MAX_UNIDADES } from '@/stores/carrito'
 
 const $q = useQuasar()
 const router = useRouter()

@@ -26,7 +26,11 @@
               <span class="etiqueta-filtro text-weight-medium">
                 {{ $q.screen.lt.sm ? 'Ordenar:' : 'Ordenar por:' }}
               </span>
-              <q-btn-toggle v-model="filtros.orden" :options="opcionesOrden" :dense="$q.screen.lt.sm" no-caps unelevated
+              <!-- Celular: lista desplegable, como en el diseño -->
+              <q-select v-if="$q.screen.lt.sm" v-model="ordenElegido" :options="opcionesOrden" emit-value map-options
+                dense outlined options-dense bg-color="white" class="col" />
+              <!-- Computador y tablet: botones, con las dos direcciones del precio a la vista -->
+              <q-btn-toggle v-else v-model="ordenElegido" :options="opcionesOrdenBotones" no-caps unelevated
                 color="primary" text-color="white" toggle-color="secondary" toggle-text-color="black" />
             </q-card-section>
           </q-card>
@@ -126,10 +130,34 @@ const filtros = useFiltrosStore()
 const anuncios = useAnunciosStore()
 const carrito = useCarritoStore()
 
+// Ordenar: tres opciones (precio de menor a mayor, de mayor a menor, o por fecha).
+// Se guardan en el store como orden ('precio' o 'fecha') y precioAsc (true o false).
 const opcionesOrden = [
-  { label: 'Precio', value: 'precio', icon: 'arrow_upward' },
+  { label: 'Precio: menor a mayor', value: 'precio-asc' },
+  { label: 'Precio: mayor a menor', value: 'precio-desc' },
+  { label: 'Fecha: más recientes', value: 'fecha' },
+]
+
+const opcionesOrdenBotones = [
+  { label: 'Menor precio', value: 'precio-asc', icon: 'arrow_upward' },
+  { label: 'Mayor precio', value: 'precio-desc', icon: 'arrow_downward' },
   { label: 'Fecha', value: 'fecha' },
 ]
+
+const ordenElegido = computed({
+  get: () => {
+    if (filtros.orden === 'fecha') return 'fecha'
+    return filtros.precioAsc ? 'precio-asc' : 'precio-desc'
+  },
+  set: (valor) => {
+    if (valor === 'fecha') {
+      filtros.orden = 'fecha'
+    } else {
+      filtros.orden = 'precio'
+      filtros.precioAsc = valor === 'precio-asc'
+    }
+  },
+})
 
 // Deja solo números y un punto decimal, con máximo 2 decimales (acepta la coma como punto)
 function limpiarPrecio(valor) {
@@ -198,8 +226,11 @@ const celularesFiltrados = computed(() => {
     return true
   })
 
-  // Orden: por precio (menor a mayor) o por fecha (más reciente primero)
-  return [...lista].sort((a, b) => (f.orden === 'precio' ? a.precio - b.precio : b.fecha - a.fecha))
+  // Orden: por fecha (más reciente primero) o por precio, en la dirección elegida
+  return [...lista].sort((a, b) => {
+    if (f.orden === 'fecha') return b.fecha - a.fecha
+    return f.precioAsc ? a.precio - b.precio : b.precio - a.precio
+  })
 })
 
 // Paginación
