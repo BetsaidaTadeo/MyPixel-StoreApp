@@ -46,12 +46,12 @@
               class="bg-white"
             >
               <q-carousel-slide v-for="(img, i) in imagenes" :key="i" :name="i" class="q-pa-none">
-                <q-img :src="img" fit="contain" class="fit" />
+                <FotoCelular :src="img" class="fit" />
               </q-carousel-slide>
             </q-carousel>
-            <div v-else class="bg-grey-2 flex flex-center" style="height: 420px">
-              <q-icon name="smartphone" size="96px" color="grey-5" />
-            </div>
+
+              <FotoCelular v-else :src="null" height="420px" />
+            
           </q-card>
         </div>
 
@@ -150,6 +150,7 @@
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAnunciosStore } from '@/stores/anuncios'
+import FotoCelular from '@/components/FotoCelular.vue'
 
 const route = useRoute()
 const anuncios = useAnunciosStore()

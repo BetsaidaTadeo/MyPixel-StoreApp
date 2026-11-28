@@ -17,19 +17,9 @@
           <q-card v-for="item in carrito.items" :key="item.id" flat bordered class="q-mb-md overflow-hidden"
             style="border-radius: 12px">
             <q-card-section horizontal>
+
               <router-link :to="`/anuncio/${item.id}`" class="carrito-miniatura">
-                <q-img v-if="item.imagen" :src="item.imagen" fit="contain" class="bg-white fit"
-                  style="min-height: inherit">
-                  <!-- Si la foto no carga, se muestra el ícono del celular -->
-                  <template #error>
-                    <div class="absolute-full flex flex-center bg-grey-2">
-                      <q-icon name="smartphone" size="40px" color="grey-5" />
-                    </div>
-                  </template>
-                </q-img>
-                <div v-else class="bg-grey-2 flex flex-center fit" style="min-height: inherit">
-                  <q-icon name="smartphone" size="40px" color="grey-5" />
-                </div>
+                <FotoCelular :src="item.imagen" class="fit" style="min-height: inherit" />
               </router-link>
 
               <q-card-section class="col">
@@ -105,6 +95,7 @@
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useCarritoStore, MAX_UNIDADES } from '@/stores/carrito'
+import FotoCelular from '@/components/FotoCelular.vue'
 
 const $q = useQuasar()
 const router = useRouter()

@@ -56,19 +56,9 @@
     <div class="grid-celulares q-mt-md">
       <q-card v-for="celular in celularesPagina" :key="celular.id" flat bordered class="card-celular column"
         style="border-radius: 8px">
-        <q-img v-if="celular.imagen" :src="celular.imagen" :height="alturaFoto" fit="contain"
-          class="bg-white cursor-pointer" @click="verDetalle(celular.id)">
-          <!-- Si la foto no carga (por ejemplo, no existe en este CouchDB), se muestra el ícono -->
-          <template #error>
-            <div class="absolute-full flex flex-center bg-grey-2">
-              <q-icon name="smartphone" size="56px" color="grey-5" />
-            </div>
-          </template>
-        </q-img>
-        <div v-else class="bg-grey-2 flex flex-center cursor-pointer" :style="{ height: alturaFoto }"
-          @click="verDetalle(celular.id)">
-          <q-icon name="smartphone" size="56px" color="grey-5" />
-        </div>
+
+        <FotoCelular :src="celular.imagen" :height="alturaFoto" class="cursor-pointer"
+          @click="verDetalle(celular.id)" />
 
         <q-card-section class="col q-pb-none cursor-pointer" @click="verDetalle(celular.id)">
           <div class="marca-celular">{{ celular.marca }}</div>
@@ -102,7 +92,7 @@
       <div class="text-h6">No se encontraron celulares</div>
     </div>
 
-     <!-- Paginación y artículos por página -->
+    <!-- Paginación y artículos por página -->
     <div v-if="celularesFiltrados.length" class="row items-center justify-center q-my-lg" style="gap: 16px">
       <q-pagination v-if="totalPaginas > 1" v-model="pagina" :max="totalPaginas" :max-pages="$q.screen.lt.sm ? 5 : 7"
         direction-links :boundary-links="!$q.screen.lt.sm" color="primary" />
@@ -123,6 +113,7 @@ import { useFiltrosStore } from '@/stores/filtros'
 import { useAnunciosStore } from '@/stores/anuncios'
 import { useCarritoStore } from '@/stores/carrito'
 import { rangoPantalla } from '@/utils/catalogos'
+import FotoCelular from '@/components/FotoCelular.vue'
 
 const $q = useQuasar()
 const router = useRouter()
